@@ -80,4 +80,3 @@ function updateGameArea() {
     if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speed= -1; }
     myGamePiece.newPos();
     myGamePiece.update();
-

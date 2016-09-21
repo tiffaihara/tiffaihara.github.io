@@ -9,7 +9,7 @@
 
 ul.tab li {
   float: left;
-} **/
+}
 
 ul.tab li a {
   display: inline-block;
@@ -22,12 +22,12 @@ ul.tab li a {
 }
 /* Style the tab content */
 
-.tabcontent {
+/*.tabcontent {
   display: none;
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
-}
+} */
 .why{
   background-color:powderblue; 
   border-radius:35px;
