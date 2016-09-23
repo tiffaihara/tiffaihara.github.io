@@ -1,17 +1,4 @@
-function openCity(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-  document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
- var myGamePiece;
+var myGamePiece;
 
 function startGame() {
     myGamePiece = new component(30, 30, "red", 225, 225);
@@ -24,7 +11,7 @@ var myGameArea = {
         this.canvas.width = 480;
         this.canvas.height = 270;
         this.context = this.canvas.getContext("2d");
-        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+      document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
         this.interval = setInterval(updateGameArea, 20);
         window.addEventListener('keydown', function (e) {
