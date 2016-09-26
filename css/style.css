@@ -1,5 +1,9 @@
-.menu{ 
+.background{
+  background-image:url(http://wallpapercave.com/wp/hiRxbVu.jpg)
+}
+.menu{
   font-size:20px;
+  color:white;
   width: 500px;
     height: 30px;
     background-color: red;
@@ -166,7 +170,17 @@ h6{
   color:black;
   font-size:20px;
 }
-
+.link{
+  color:white;
+  font-size:25px;
+}
+.second{
+  border-style:solid;
+  border-radius:10px;
+  border-color:#81C9C8;
+  background-color:#81C9C8;
+  font-family:Ariel;
+}
 /**div1 {
     float:bottom;
     width: 100px;
