@@ -1,7 +1,7 @@
 var myGamePiece;
 
 function startGame() {
-    myGamePiece = new component(30, 30, "red", 225, 225);
+    myGamePiece = new component(40, 40, "https://67.media.tumblr.com/a34c2825efae8672119b2d9acbef5329/tumblr_n1xy7qYFtj1ttwt0so1_500.png", 225, 225,"image");
     myGameArea.start();
 }
 
@@ -67,3 +67,29 @@ function updateGameArea() {
     if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speed= -1; }
     myGamePiece.newPos();
     myGamePiece.update();
+  
+  function component(width, height, color, x, y, type) {
+  this.type = type;
+  if (type == "image") {
+    this.image = new Image();
+    this.image.src = color;
+  }
+  this.width = width;
+  this.height = height;
+  this.speedX = 0;
+  this.speedY = 0; 
+  this.x = x;
+  this.y = y; 
+  this.update = function() {
+    ctx = myGameArea.context;
+    if (type == "image") {
+      ctx.drawImage(this.image, 
+        this.x, 
+        this.y,
+        this.width, this.height);
+    } else {
+      ctx.fillStyle = color;
+      ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+  }
+}

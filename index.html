@@ -2,8 +2,10 @@
 <html >
   <head>
     <meta charset="UTF-8">
-    <title>Website 1</title>
-    
+    <title>This Is My Website!</title>
+    <link rel='shortcut icon'
+href='https://tiffaihara.github.io/media/favicon.ico' target="_blank"
+type='image/x-icon' />
     
     
     
@@ -12,106 +14,223 @@
     
     
     
+    
   </head>
 
   <body>
 
-    <html> 
+    <html>
+<head>
+  <ul>
+    <li><a href="http://www.google.com">Ask Google</a></li>
+    <li><a href="#" onclick="openText(event, Move the Arrows)">Get Dylan O'Brien into the Watermelon Polaroid Frame</a></li>
+  </ul>
+  <div class="menu"> <strong><h7>PHOTO READY?</h7> </strong></div>
   <head>
-  <div class = "menu"> <strong>USE THE ARROW KEYS TO ROTATE THE SQUARE </strong></div>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <style>
 canvas {
-    border:10px solid #7f00cc;
-    background-color:powderblue;
-}
+  width:260px;
+  height:238px;
+    border:1px solid #d3d3d3;
+    background-image:url(https://s-media-cache-ak0.pinimg.com/236x/86/3f/75/863f754196428ed57aa1a24b596630f1.jpg);
+  }
 </style>
 </head>
 <body onload="startGame()">
-
 <script>
+
 var myGamePiece;
 
 function startGame() {
-    myGamePiece = new component(30, 30, "black", 225, 225);
-    myGameArea.start();
+    myGamePiece = new component(250, 190, "https://67.media.tumblr.com/a34c2825efae8672119b2d9acbef5329/tumblr_n1xy7qYFtj1ttwt0so1_500.png", 10, 120, "image");
+   myGameArea.start(); 
 }
+
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
         this.canvas.width = 480;
-        this.canvas.height = 250;
+        this.canvas.height = 270;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
         this.interval = setInterval(updateGameArea, 20);
-        window.addEventListener('keydown', function (e) {
-            e.preventDefault();
-            myGameArea.keys = (myGameArea.keys || []);
-            myGameArea.keys[e.keyCode] = (e.type == "keydown");
-        })
-        window.addEventListener('keyup', function (e) {
-            myGameArea.keys[e.keyCode] = (e.type == "keydown");
-        })
+        },
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
     stop : function() {
         clearInterval(this.interval);
-    },
-    clear : function() {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }
 
 function component(width, height, color, x, y, type) {
-
     this.type = type;
+    if (type == "image") {
+        this.image = new Image();
+        this.image.src = color;
+    }
+  this.update = function() {
+        ctx = myGameArea.context;
+        ctx.save();
+        ctx.translate(this.x, this.y); 
+        ctx.rotate(this.angle);
+     ctx.fillRect(this.width / -2, this.height / -2, this.width, this.height); 
+        ctx.restore(); 
+  }
     this.width = width;
     this.height = height;
-    this.speed = 0;
-    this.angle = 0;
-    this.moveAngle = 0;
+    this.speedX = 0;
+    this.speedY = 0;
     this.x = x;
     this.y = y;
     this.update = function() {
         ctx = myGameArea.context;
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle);
-        ctx.fillStyle = color;
-        ctx.fillRect(this.width / -2, this.height / -2, this.width, this.height);
-        ctx.restore();
+        if (type == "image") {
+            ctx.drawImage(this.image,
+                this.x,
+                this.y,
+                this.width, this.height);
+        } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
     }
     this.newPos = function() {
-        this.angle += this.moveAngle * Math.PI / 180;
-        this.x += this.speed * Math.sin(this.angle);
-        this.y -= this.speed * Math.cos(this.angle);
+        this.x += this.speedX;
+        this.y += this.speedY;
     }
 }
 
 function updateGameArea() {
     myGameArea.clear();
-    myGamePiece.moveAngle = 0;
-    myGamePiece.speed = 0;
-    if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.moveAngle = -1; }
-    if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.moveAngle = 1; }
-    if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speed= 1; }
-    if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speed= -1; }
     myGamePiece.newPos();
     myGamePiece.update();
 }
+
+function moveup() {
+    myGamePiece.speedY = -1;
+}
+
+function movedown() {
+    myGamePiece.speedY = 1;
+}
+
+function moveleft() {
+    myGamePiece.speedX = -1;
+}
+
+function moveright() {
+    myGamePiece.speedX = 1;
+}
+
+function clearmove() {
+    myGamePiece.speedX = 0;
+    myGamePiece.speedY = 0;
+}
 </script>
- <!-- <div class = "words"><strong>use the arrows and keys to move the square</strong></div>-->
-  
+<div style="text-align:center;width:480px;">
+  <button onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()">UP</button><br><br>
+  <button onmousedown="moveleft()" onmouseup="clearmove()" ontouchstart="moveleft()">LEFT</button>
+  <button onmousedown="moveright()" onmouseup="clearmove()" ontouchstart="moveright()">RIGHT</button><br><br>
+  <button onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()">DOWN</button>
+</div>
+</body>
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    canvas {
+        border:10px solid #7f00cc;
+      background-color:powderblue;
+    }
+  </style>
+</head>
+
+<body onload="startGame()">
+
+  <script>
+    var myGamePiece;
+   
+    function startGame() {
+        myGamePiece = new component(30, 30, "https://67.media.tumblr.com/a34c2825efae8672119b2d9acbef5329/tumblr_n1xy7qYFtj1ttwt0so1_500.png", 100, 120,"image");
+        myGameArea.start();
+    }
+    var myGameArea = {
+        canvas : document.createElement("canvas"),
+        start : function() {
+            this.canvas.width = 480;
+            this.canvas.height = 250;
+            this.context = this.canvas.getContext("2d");
+            document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+            this.frameNo = 0;
+            this.interval = setInterval(updateGameArea, 20);
+            window.addEventListener('keydown', function (e) {
+                e.preventDefault();
+                myGameArea.keys = (myGameArea.keys || []);
+                myGameArea.keys[e.keyCode] = (e.type == "keydown");
+            })
+            window.addEventListener('keyup', function (e) {
+                myGameArea.keys[e.keyCode] = (e.type == "keydown");
+            })
+        },
+        stop : function() {
+            clearInterval(this.interval);
+        },
+        clear : function() {
+            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }
+    }
+    
+    function component(width, height, color, x, y, type) {
+    
+        this.type = type;
+        this.width = width;
+        this.height = height;
+        this.speed = 0;
+        this.angle = 0;
+        this.moveAngle = 0;
+        this.x = x;
+        this.y = y;
+        this.update = function() {
+            ctx = myGameArea.context;
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.angle);
+            ctx.fillStyle = color;
+            ctx.fillRect(this.width / -2, this.height / -2, this.width, this.height);
+            ctx.restore();
+        }
+        this.newPos = function() {
+            this.angle += this.moveAngle * Math.PI / 180;
+            this.x += this.speed * Math.sin(this.angle);
+            this.y -= this.speed * Math.cos(this.angle);
+        }
+    }
+    
+    function updateGameArea() {
+        myGameArea.clear();
+        myGamePiece.moveAngle = 0;
+        myGamePiece.speed = 0;
+        if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.moveAngle = -1; }
+        if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.moveAngle = 1; }
+        if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speed= 1; }
+        if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speed= -1; }
+        myGamePiece.newPos();
+        myGamePiece.update();
+    }
+  </script>
+  <!-- <div class = "words"><strong>use the arrows and keys to move the square</strong></div>-->
+
   <body>
     <div class="dropdown">
-  <button class="dropbtn">Shop Now</button>
-  <div class="dropdown-content">
-    <a href=""http://www.forever21.com/Product/Category.aspx?br=f21&category=promo-purpose-tour"">Purpose Tour X 21</a>
-    <a href="http://www.urbanoutfitters.com/urban/index.jsp">Urban Outfitters</a>
-    <a href="http://www.sephora.com/">Sephora</a>
-  </div>
-</div>
-<!--<ul class="tab">
+      <button class="dropbtn">Shop Now</button>
+      <div class="dropdown-content">
+        <a href="" http://www.forever21.com/Product/Category.aspx?br=f21&category=promo-purpose-tour "">Purpose Tour X 21</a>
+        <a href="http://www.urbanoutfitters.com/urban/index.jsp">Urban Outfitters</a>
+        <a href="http://www.sephora.com/">Sephora</a>
+      </div>
+    </div>
+    <!--<ul class="tab">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -140,36 +259,52 @@ function updateGameArea() {
     } 
   </style>
       </div> -->
-  <body style = background-image:url(http://wallpapercave.com/wp/hiRxbVu.jpg)>
-    <head1> 
-  <h1><h1 style= "color:white; font-size:60px">Welcome<img src="http://67.media.tumblr.com/a0fb94a499544907e7f0f06d60141955/tumblr_inline_o4ipyfbARV1r312r2_500.png" alt="some_text" style="width:100px;height:90px;"> </h1> 
-    <script>
-function light(sw) {
-    var pic;
-    if (sw == 0) {
-        pic = "http://gifdanceparty.giphy.com/assets/dancers/pumpgirl.gif"
-    } else {
-        pic = "https://66.media.tumblr.com/5d0e853b74cc6301cbadf4cd118fa110/tumblr_mq0qnlOxkU1rgpyeqo1_500.gif"
-    }
-  document.getElementById('myImage').src = pic;
-}
-</script>
-<img id="myImage" src="https://66.media.tumblr.com/5d0e853b74cc6301cbadf4cd118fa110/tumblr_mq0qnlOxkU1rgpyeqo1_500.gif" style="float:left" width="250" height="170">
-<p>
-<button type="button" onclick="light(1)">Option 1</button>
-<button type="button" onclick="light(0)">Option 2</button>
-</p></script>
-    </head1> 
-    <div class = "haha"><img src="http://img.lum.dolimg.com/v1/images/Simba_MakingFunnyFace_2a1ebf0c.gif" style = "float:right;width:350px;height:250px;border-style:solid;"> <!--when the image doesnt want a border -.- ...--></div>
-    <p>
-    <h4><strong>About</strong> <div class="fa fa-heart"></i></div> </h4><div class="why"> Hi, My name is Tiffany and I am a senior in high school. I am a dancer and a game designer. My favorite TV show are Criminal Minds, American Horror Story, Scream, Project Runway, Guilt, Dance Moms, The Fosters, and America's Next Top Model. I am not an early bird but on some occasions, I will wake up early. My favorite article of clothing
-    are shoes. My pet peeve is when someone steps on my white shoes on the first day I got them. Creativity revolves around my life.The software that was used is called Game Maker. It does not work on OS software unless system prefences allows it.  Preferences are edited to fit functions. The Game was created by the help of my friends That I met at NYU. This game might have some glitiches. It depends on the software version. </p></div>
-    <img src ="http://66.media.tumblr.com/c97e72c823008b1b59ee5f691a9ceda7/tumblr_nltc33drY61rx5rfmo1_1280.gif" style=float:right; height=250px; width=350px>
- <div class "link"><a href= "https://www.dropbox.com/s/oj2camts7jdoxhw/The%20Abandoned%20Castle%20of%20Chiffaline.zip?dl=0"><div class = "link"><strong>My Game[Dropbox File]</strong></div></a>
-    <div class = "second"> The game dropbox file is for Windows P.C or laptops. Unless the system prefences are changed on Mac Computers, then it might work. It might have a few glitches, depending on the software version.  </div>
-      <!--<p> <h4> <strong> Lost? Click the Tabs</strong>
+
+    <body style=b ackground-image:url(http://wallpapercave.com/wp/hiRxbVu.jpg)>
+      <head1>
+        <h1><h1 style= "color:white; font-size:60px">Welcome<img src="http://67.media.tumblr.com/a0fb94a499544907e7f0f06d60141955/tumblr_inline_o4ipyfbARV1r312r2_500.png" alt="some_text" style="width:100px;height:90px;"> </h1>
+        <script>
+          function light(sw) {
+              var pic;
+              if (sw == 0) {
+                  pic = "http://gifdanceparty.giphy.com/assets/dancers/pumpgirl.gif"
+              } else {
+                  pic = "https://66.media.tumblr.com/5d0e853b74cc6301cbadf4cd118fa110/tumblr_mq0qnlOxkU1rgpyeqo1_500.gif"
+              }
+            document.getElementById('myImage').src = pic;
+          }
+        </script>
+        <img id="myImage" src="https://d3f1qzw2ko3070.cloudfront.net/img/assets/common/images/loader.gif" style="float:left" width="200" height="150">
+        <p>
+          <button type="button1" onclick="light(1)">Option 1 </button>
+          <button type="button1" onclick="light(0)">Option 2</button>
+        </p>
+        </script>
+      </head1>
+      <div class="haha"><img src="https://media.giphy.com/media/tffaEs6otB1jW/giphy.gif" style="float:right;width:350px;height:250px;border-style:solid;">
+        <!--when the image doesnt want a border -.- ...-->
+      </div>
+      <p>
+        <h4><strong>About</strong> <div class="fa fa-heart"></i></div> </h4>
+        <div class="why"> Hi, My name is Tiffany and I am a senior in high school. I am a dancer and a game designer. My favorite TV show are Criminal Minds, American Horror Story, Scream, Project Runway, Guilt, Dance Moms, The Fosters, and America's Next Top Model. I
+          am not an early bird but on some occasions, I will wake up early. My favorite article of clothing are shoes. My pet peeve is when someone steps on my white shoes on the first day I got them. Creativity revolves around my life.The software that
+          was used is called Game Maker. It does not work on OS software unless system prefences allows it. Preferences are edited to fit functions. The Game was created by the help of my friends That I met at NYU. This game might have some glitiches.
+          It depends on the software version. </p>
+      </div>
+      <img src="http://musiccitiessummit.com/wp-content/uploads/chicago-1.jpg" style=float:right; height=290px; width=350px>
+      <div class "link">
+        <a href="https://www.dropbox.com/s/oj2camts7jdoxhw/The%20Abandoned%20Castle%20of%20Chiffaline.zip?dl=0">
+          <div class="link"><strong>My Game[Dropbox File]</strong></div>
+        </a>
+        <div class="second"> The game dropbox file is for Windows P.C or laptops. Unless the system prefences are changed on Mac Computers, then it might work. It might have a few glitches, depending on the software version. </div>
+        <div class="another">
+          <a href="http://store.steampowered.com/tag/en/Game%20Development/#p=0&tab=NewReleases">
+            <img border="0" alt="Console" src="http://static.tumblr.com/109d3823f7bf4caec2665c28d81a18f0/hkcx37f/uSFnej8gs/tumblr_static_1ug1zmkjb5j44g08k080s4804.gif" width="150" height="100">
+          </a> Want to design and develop a game? Click the panda playing the nintendo. The software is called Game Maker. It does cost money, however, there is one free version of it if you scroll through the pages. MAC OS Software may cost more than Windows. It depends on which version of Game Maker you would like to choose or purchase. Game Maker is an easy way to program games and if you are a beginner, then there are many online tutorials on how to develop a game. <br> <strong><a href ="https://www.travelocity.com/"> Experience Life in The City!</strong></a><br> Click the link and book a trip to the city!
+        </div>
+        <!--<p> <h4> <strong> Lost? Click the Tabs</strong>
     </p> -->
-  <svg width=600 height="600">
+        <svg width=600 height="600">
     <animate attributeName="y" attributeType="XML" begin="0s" dur="6s" fill="freeze" from="100" to="-10" />
     <animate attributeName="fill" attributeType="CSS" from="red" to="violet" begin="2s" dur="4s" fill="freeze" />
   </rect>
@@ -184,18 +319,19 @@ function light(sw) {
   </g>
     </p>
 </svg>
-  hi
-    <footer> 
-      <p> <h6> Created By: Tiffany A.</h6></p>
-    <p> <h6>Thanks to Tumblr for the Great Gifs </h6></p> 
-      </footer>
-</body>
-</div>
+        <footer>
+          <p>
+            <h6> Created By: Tiffany A.</h6></p>
+          <p>
+            <h6>Thanks to Tumblr for the Great Gifs </h6></p>
+        </footer>
+    </body>
+    </div>
+
 </html>
     
         <script src="js/index.js"></script>
 
-    
     
     
   </body>
