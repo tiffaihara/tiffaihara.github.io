@@ -228,6 +228,26 @@ button{
     font-size: 12px;
     cursor: pointer;
 }
+.mySlides{
+  float: center;
+border-style:solid;
+  border-color:powderblue;
+  border-background:powderblue;
+  border-radius:10px;
+}
+h9{
+  color:#fff;
+  font-size:29px;
+  text-align:center;
+}
+.box{
+  line-height:120%;
+  background-color:powderblue;
+  border-style:solid;
+  border-color:powderblue;
+  border-background:powderblue;
+  border-radius:10px;
+}
 /**div1 {
     float:bottom;
     width: 100px;
