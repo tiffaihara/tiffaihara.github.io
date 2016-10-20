@@ -78,12 +78,9 @@ dropbtn {
 }
 .dropdown-content a:hover {background-color: #ff007f}
 
-/* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
     display: block;
 }
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
     background-color: #d000aa;
 }
@@ -107,8 +104,6 @@ dropbtn {
     50%  {background-color: blue;}
     100% {background-color: green;}
 }
-
-/* Standard syntax */
 @keyframes example {
     0%   {background-color: red;}
     25%  {background-color: yellow;}
@@ -164,7 +159,7 @@ footer{
   font-family:Times New Roman;
     height: 145px;
     background: red;
-    -webkit-transition: width 2s; /* Safari */
+    -webkit-transition: width 2s; 
     transition: width 2s;
   border-style:solid; 
   background-color:pink;
@@ -197,7 +192,7 @@ h6{
   color:lightpink;
 }
 a{
-  color:#870245;
+  color:#f20079;
 }
 .second{
   border-style:solid;
