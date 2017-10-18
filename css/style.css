@@ -1,4 +1,37 @@
-ul {
+/* UPDATE FALL 2017 */
+h1{
+  font-size: 30px; 
+  text-align: center;
+  color: blueviolet;
+}
+#background{
+  border-style: solid; 
+  border-width: 2px; 
+  border-color: violet;
+  border-radius: 10px;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+.about{
+  font-size: 17px;
+}
+td, th {
+    border: 1px solid #000;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+.link{
+  font-size: 17px;
+  color: blueviolet;
+}
+/* ul {
   float:right;
     list-style-type: none;
     margin: 1;
@@ -242,7 +275,7 @@ h9{
   border-color:powderblue;
   background-color:powderblue;
   border-radius:10px;
-}
+} */
 /**div1 {
     float:bottom;
     width: 100px;
